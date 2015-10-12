@@ -27,7 +27,7 @@ public class Utils {
 		return sb.toString();
 	}
 
-	public static InputStream getStaticInputStream(String filePath) {
+	private static InputStream getStaticInputStream(String filePath) {
 		return Utils.class.getResourceAsStream(filePath);
 	}
 

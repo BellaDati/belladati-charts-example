@@ -1,8 +1,8 @@
-package com.belladati.charts.example.ui;
+package com.belladati.charts.example;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -10,11 +10,8 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.scene.Scene;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import org.w3c.dom.Document;
 
 public class MainWindow extends JFrame {
@@ -25,34 +22,41 @@ public class MainWindow extends JFrame {
 	public MainWindow() throws InterruptedException {
 		System.out.println("Initializing main window...");
 
+		// configure main window
 		setTitle("BellaDati Charts SDK Example");
 		setSize(750, 600);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+		// setup content of main window
 		JPanel content = new JPanel();
 		this.add(content);
-
 		content.setLayout(null);
-
 		content.add(createQuitButton());
 		content.add(createWebPanel());
 
+		// initialize web engine
 		while (webEngine == null) {
 			System.out.println("Waiting to initialize JavaFX WebEngine...");
 			Thread.sleep(1000);
 		}
-
-		loadHtmlText("<html><body>BellaDati Charts SDK Example. No chart yet.</body></html>");
 	}
 
-	public void loadHtmlText(final String htmlText) {
-		System.out.println("Loading static HTML text:\n" + htmlText + "\n");
+	/**
+	 * Loads a web page specified by given URL into this window. 
+	 * @param url
+	 */
+	public void loadUrl(final String url) {
+		System.out.println("Loading URL: " + url + "\n");
 		Platform.runLater(() -> {
-			webEngine.loadContent(htmlText);
+			webEngine.load(url);
 		});
 	}
 
+	/**
+	 * Executes given script in the context of the current page.
+	 * @param javascript
+	 */
 	public void loadJavaScript(final String javascript) {
 		System.out.println("Executing JavaScript: " + javascript + "\n");
 		webEngine.documentProperty().addListener(new ChangeListener<Document>() {
@@ -74,7 +78,6 @@ public class MainWindow extends JFrame {
 			WebView webView = new WebView();
 			webEngine = webView.getEngine();
 			webEngine.setJavaScriptEnabled(true);
-			webEngine.loadContent("<html><body>BellaDati Charts SDK Example. No chart yet.</body></html>");
 			htmlPanel.setScene(new Scene(webView));
 		});
 		return htmlPanel;

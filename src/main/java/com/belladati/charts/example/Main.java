@@ -1,17 +1,28 @@
 package com.belladati.charts.example;
 
-import com.belladati.charts.example.loader.ChartLoader;
-import com.belladati.charts.example.render.HtmlReplacer;
-import com.belladati.charts.example.ui.MainWindow;
-
 public class Main {
 
+	private static final String HTML_INDEX = "/com/belladati/charts/example/index.html";
+	private static final String JSON_CHART = "/com/belladati/charts/example/chart.json";
+
 	public static void main(String[] args) throws Exception {
+		// create Swing UI
 		MainWindow window = new MainWindow();
 		window.setVisible(true);
 
-		window.loadHtmlText(new HtmlReplacer().getHtml());
+		// load URL with index.html 
+		window.loadUrl(getFilePath(HTML_INDEX));
 
-		window.loadJavaScript("Charts.createAndRender(\"chart\", " + new ChartLoader().getJson() + ");");
+		// render the chart by executing JavaScript 
+		window.loadJavaScript("Charts.createAndRender(\"chart\", " + getFileContent(JSON_CHART) + ");");
 	}
+
+	private static String getFilePath(String filePath) {
+		return "file://" + Main.class.getResource(filePath).getPath();
+	}
+
+	private static String getFileContent(String filePath) {
+		return Utils.getContentOfStaticFile(filePath);
+	}
+
 }
