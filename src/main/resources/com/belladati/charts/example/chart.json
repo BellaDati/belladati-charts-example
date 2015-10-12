@@ -1,0 +1,105 @@
+{
+            "x_axis": {
+              "colour": "#86bbca",
+              "grid-colour": "#c1d8df",
+              "steps": 0,
+              "labels": {
+                "colour": "#484848",
+                "labels": [
+                  "I / 2011",
+                  "II / 2011",
+                  "III / 2011"
+                ]
+              }
+            },
+            "y_axis": {
+              "colour": "#86bbca",
+              "grid-colour": "#c1d8df",
+              "steps": 25,
+              "min": 0,
+              "max": 100,
+              "labels": {
+                "colour": "#484848",
+                "labels": [
+                  {
+                    "text": "0",
+                    "y": 0
+                  },
+                  {
+                    "text": "25",
+                    "y": 25
+                  },
+                  {
+                    "text": "50",
+                    "y": 50
+                  },
+                  {
+                    "text": "75",
+                    "y": 75
+                  },
+                  {
+                    "text": "100",
+                    "y": 100
+                  }
+                ]
+              }
+            },
+            "bg_colour": "#ffffff",
+            "is_decimal_separator_comma": 1,
+            "is_thousand_separator_disabled": 1,
+            "chartId": "chart_1964",
+            "elements": [
+              {
+                "type": "bar_glass",
+                "text": "ga:newVisits (avg)",
+                "values": [
+                  {
+                    "top": "11.5",
+                    "tip": "I / 2011 (ga:newVisits (avg))<br>11,5",
+                    "label": "11,5",
+                  },
+                  {
+                    "top": "16.032967032967033",
+                    "tip": "II / 2011 (ga:newVisits (avg))<br>16,03297",
+                    "label": "16,03297",
+                  },
+                  {
+                    "top": "16.75",
+                    "tip": "III / 2011 (ga:newVisits (avg))<br>16,75",
+                    "label": "16,75",
+                  }
+                ],
+                "colour": "#19527d"
+              },
+              {
+                "type": "bar_glass",
+                "text": "ga:newVisits (max)",
+                "values": [
+                  {
+                    "top": "32",
+                    "tip": "I / 2011 (ga:newVisits (max))<br>32",
+                    "label": "32",
+                  },
+                  {
+                    "top": "57",
+                    "tip": "II / 2011 (ga:newVisits (max))<br>57",
+                    "label": "57",
+                  },
+                  {
+                    "top": "82",
+                    "tip": "III / 2011 (ga:newVisits (max))<br>82",
+                    "label": "82",
+                  }
+                ],
+                "colour": "#f4b800"
+              }
+            ],
+            "tooltip": {
+              "mouse": "2",
+              "shadow": true,
+              "stroke": 1,
+              "colour": "#484848",
+              "background": "#ffffff"
+            },
+            "options": {}
+        }
