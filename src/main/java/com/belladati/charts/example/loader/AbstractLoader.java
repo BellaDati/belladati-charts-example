@@ -20,7 +20,14 @@ public abstract class AbstractLoader {
 	}
 
 	private String getFilePath(String filePath) {
-		return "file://" + this.getClass().getResource(filePath).getPath();
+		String path = this.getClass().getResource(filePath).getPath();
+		if (!path.startsWith("file:")) {
+			path = "file://" + path;
+		}
+		if (path.contains(".jar!")) {
+			path = "jar:" + path;
+		}
+		return path;
 	}
 
 }
