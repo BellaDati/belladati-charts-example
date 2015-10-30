@@ -35,6 +35,7 @@ public class JsonEditor extends JDialog {
 		// configure selector window
 		setTitle("BellaDati Charts SDK Example");
 		setSize(720, 560);
+		setResizable(false);
 		setLocationRelativeTo(null);
 		mainWindow = parent;
 

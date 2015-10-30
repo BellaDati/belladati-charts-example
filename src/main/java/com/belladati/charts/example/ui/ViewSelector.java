@@ -13,9 +13,12 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -43,6 +46,7 @@ public class ViewSelector extends JDialog {
 		// configure selector window
 		setTitle("BellaDati Charts SDK Example");
 		setSize(765, 425);
+		setResizable(false);
 		setLocationRelativeTo(null);
 		mainWindow = parent;
 
@@ -100,7 +104,7 @@ public class ViewSelector extends JDialog {
 
 	private JTextField createFieldPassword(JPanel content) {
 		JLabel label = new JLabel("Password:");
-		JTextField field = new JTextField("apiDemo1");
+		JPasswordField field = new JPasswordField("apiDemo1");
 		label.setBounds(15, 190, 200, 30);
 		field.setBounds(10, 215, 200, 30);
 		content.add(label);
@@ -141,6 +145,10 @@ public class ViewSelector extends JDialog {
 		return button;
 	}
 
+	public SdkLoader getLoader() {
+		return loader;
+	}
+
 	private JButton createLogoutButton() {
 		JButton button = new JButton("Logout");
 		button.setBounds(30, 300, 160, 30);
@@ -159,31 +167,41 @@ public class ViewSelector extends JDialog {
 
 	private MyJList<Report> createListReports(JPanel content) {
 		JLabel label = new JLabel("Reports:");
-		MyJList<Report> list = new MyJList<Report>();
 		label.setBounds(230, 10, 160, 30);
-		list.setBounds(230, 35, 250, 350);
+		content.add(label);
+
+		MyJList<Report> list = new MyJList<Report>();
+		JScrollPane scrollList = new JScrollPane(list);
+		scrollList.setBounds(230, 35, 250, 350);
+		scrollList.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		content.add(scrollList);
+
 		list.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				// remove old views and list new ones associated with selected report
 				listViews.clear();
 				Report selected = listReports.getSelectedValue();
 				if (selected != null) {
-					for (View view : loader.getViews(listReports.getSelectedValue())) {
+					for (View view : loader.getViews(selected)) {
 						listViews.addElement(view);
 					}
 				}
 			}
 		});
-		content.add(label);
-		content.add(list);
 		return list;
 	}
 
 	private MyJList<View> createListViews(JPanel content) {
 		JLabel label = new JLabel("Views:");
-		MyJList<View> list = new MyJList<View>();
 		label.setBounds(500, 10, 160, 30);
-		list.setBounds(500, 35, 250, 320);
+		content.add(label);
+
+		MyJList<View> list = new MyJList<View>();
+		JScrollPane scrollList = new JScrollPane(list);
+		scrollList.setBounds(500, 35, 250, 320);
+		scrollList.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		content.add(scrollList);
+
 		list.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				// enabled/disable render button
@@ -191,8 +209,6 @@ public class ViewSelector extends JDialog {
 				buttonRender.setEnabled(selected != null);
 			}
 		});
-		content.add(label);
-		content.add(list);
 		return list;
 	}
 
@@ -203,8 +219,9 @@ public class ViewSelector extends JDialog {
 
 			public void actionPerformed(ActionEvent event) {
 				// render chart on main window
-				View selected = listViews.getSelectedValue();
-				loader.renderChart(mainWindow, selected);
+				Report selectedReport = listReports.getSelectedValue();
+				View selectedView = listViews.getSelectedValue();
+				loader.renderChart(mainWindow, selectedReport, selectedView);
 				ViewSelector.this.setVisible(false);
 			}
 		});

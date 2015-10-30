@@ -22,6 +22,7 @@ public class SampleLoader extends AbstractLoader {
 		renderIndexHtml(window, "Sample Chart");
 
 		// render the chart by executing JavaScript 
+		window.hideFilterPanel();
 		window.loadJavaScript("Charts.createAndRender(\"chart\", " + getFileContent(JSON_CHART) + ");");
 	}
 
@@ -30,6 +31,7 @@ public class SampleLoader extends AbstractLoader {
 		renderIndexHtml(window, "Custom JSON data");
 
 		// render the chart by executing JavaScript 
+		window.hideFilterPanel();
 		window.loadJavaScript("Charts.createAndRender(\"chart\", " + jsonData + ");");
 	}
 
