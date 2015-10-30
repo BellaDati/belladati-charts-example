@@ -25,6 +25,14 @@ public class SampleLoader extends AbstractLoader {
 		window.loadJavaScript("Charts.createAndRender(\"chart\", " + getFileContent(JSON_CHART) + ");");
 	}
 
+	public void renderChart(MainWindow window, String jsonData) {
+		// load URL with index.html
+		renderIndexHtml(window, "Custom JSON data");
+
+		// render the chart by executing JavaScript 
+		window.loadJavaScript("Charts.createAndRender(\"chart\", " + jsonData + ");");
+	}
+
 	private String getFileContent(String filePath) {
 		InputStream inputStream = getStaticInputStream(filePath);
 		if (inputStream == null) {

@@ -30,6 +30,7 @@ public class MainWindow extends JFrame {
 
 	private WebEngine webEngine;
 	private ViewSelector selector;
+	private JsonEditor jsonEditor;
 
 	public MainWindow() throws InterruptedException {
 		System.out.println("Initializing main window...");
@@ -46,6 +47,7 @@ public class MainWindow extends JFrame {
 		content.setLayout(null);
 		content.add(createWebPanel());
 		content.add(createSampleButton());
+		content.add(createCustomButton());
 		content.add(createApiButton());
 		content.add(createClearButton());
 		content.add(createQuitButton());
@@ -131,9 +133,24 @@ public class MainWindow extends JFrame {
 		return button;
 	}
 
+	private JButton createCustomButton() {
+		JButton button = new JButton("Custom JSON data");
+		button.setBounds(535, 50, 160, 30);
+		button.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent event) {
+				if (jsonEditor == null) {
+					jsonEditor = new JsonEditor(MainWindow.this);
+				}
+				jsonEditor.setVisible(true);
+			}
+		});
+		return button;
+	}
+
 	private JButton createApiButton() {
 		JButton button = new JButton("Chart from server");
-		button.setBounds(535, 50, 160, 30);
+		button.setBounds(535, 90, 160, 30);
 		button.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent event) {
@@ -148,7 +165,7 @@ public class MainWindow extends JFrame {
 
 	private JButton createClearButton() {
 		JButton button = new JButton("Clear");
-		button.setBounds(535, 90, 160, 30);
+		button.setBounds(535, 130, 160, 30);
 		button.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent event) {
@@ -160,7 +177,7 @@ public class MainWindow extends JFrame {
 
 	private JButton createQuitButton() {
 		JButton button = new JButton("Quit");
-		button.setBounds(535, 130, 160, 30);
+		button.setBounds(535, 170, 160, 30);
 		button.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent event) {
