@@ -34,7 +34,7 @@ public class ViewSelector extends JDialog {
 	private static final long serialVersionUID = 6004737105858841534L;
 
 	private final MainWindow mainWindow;
-	private final JTextField fieldConsumerKey, fieldConsumerSecret, fieldUsername, fieldPassword;
+	private final JTextField fieldServiceUrl, fieldConsumerKey, fieldConsumerSecret, fieldUsername, fieldPassword;
 	private final JButton buttonLogin, buttonLogout, buttonRender;
 	private final MyJList<Report> listReports;
 	private final MyJList<View> listViews;
@@ -45,7 +45,7 @@ public class ViewSelector extends JDialog {
 
 		// configure selector window
 		setTitle("BellaDati Charts SDK Example");
-		setSize(765, 425);
+		setSize(805, 425);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		mainWindow = parent;
@@ -55,6 +55,7 @@ public class ViewSelector extends JDialog {
 		this.add(content);
 		content.setLayout(null);
 
+		fieldServiceUrl = createFieldServiceUrl(content);
 		fieldConsumerKey = createFieldConsumerKey(content);
 		fieldConsumerSecret = createFieldConsumerSecret(content);
 		fieldUsername = createFieldUsername(content);
@@ -72,11 +73,21 @@ public class ViewSelector extends JDialog {
 		buttonRender.setEnabled(false);
 	}
 
+	private JTextField createFieldServiceUrl(JPanel content) {
+		JLabel label = new JLabel("Service URL:");
+		JTextField field = new JTextField("https://service.belladati.com/");
+		label.setBounds(15, 10, 200, 30);
+		field.setBounds(10, 32, 240, 30);
+		content.add(label);
+		content.add(field);
+		return field;
+	}
+
 	private JTextField createFieldConsumerKey(JPanel content) {
 		JLabel label = new JLabel("Consumer Key:");
 		JTextField field = new JTextField("techKey");
-		label.setBounds(15, 10, 200, 30);
-		field.setBounds(10, 35, 200, 30);
+		label.setBounds(15, 70, 200, 30);
+		field.setBounds(10, 92, 240, 30);
 		content.add(label);
 		content.add(field);
 		return field;
@@ -85,8 +96,8 @@ public class ViewSelector extends JDialog {
 	private JTextField createFieldConsumerSecret(JPanel content) {
 		JLabel label = new JLabel("Consumer Secret:");
 		JTextField field = new JTextField("techSecret");
-		label.setBounds(15, 70, 200, 30);
-		field.setBounds(10, 95, 200, 30);
+		label.setBounds(15, 130, 200, 30);
+		field.setBounds(10, 152, 240, 30);
 		content.add(label);
 		content.add(field);
 		return field;
@@ -95,8 +106,8 @@ public class ViewSelector extends JDialog {
 	private JTextField createFieldUsername(JPanel content) {
 		JLabel label = new JLabel("Username:");
 		JTextField field = new JTextField("api-demo@belladati.com");
-		label.setBounds(15, 130, 200, 30);
-		field.setBounds(10, 155, 200, 30);
+		label.setBounds(15, 190, 200, 30);
+		field.setBounds(10, 212, 240, 30);
 		content.add(label);
 		content.add(field);
 		return field;
@@ -105,8 +116,8 @@ public class ViewSelector extends JDialog {
 	private JTextField createFieldPassword(JPanel content) {
 		JLabel label = new JLabel("Password:");
 		JPasswordField field = new JPasswordField("apiDemo1");
-		label.setBounds(15, 190, 200, 30);
-		field.setBounds(10, 215, 200, 30);
+		label.setBounds(15, 250, 200, 30);
+		field.setBounds(10, 272, 240, 30);
 		content.add(label);
 		content.add(field);
 		return field;
@@ -114,7 +125,7 @@ public class ViewSelector extends JDialog {
 
 	private JButton createLoginButton() {
 		JButton button = new JButton("Login");
-		button.setBounds(30, 260, 160, 30);
+		button.setBounds(50, 325, 160, 30);
 		button.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent event) {
@@ -126,8 +137,8 @@ public class ViewSelector extends JDialog {
 
 				try {
 					// login user
-					loader = new SdkLoader(fieldConsumerKey.getText(), fieldConsumerSecret.getText(), fieldUsername.getText(),
-						fieldPassword.getText());
+					loader = new SdkLoader(fieldServiceUrl.getText(), fieldConsumerKey.getText(), fieldConsumerSecret.getText(),
+						fieldUsername.getText(), fieldPassword.getText());
 
 					// list new reports available for looged-in user
 					for (Report report : loader.getReports()) {
@@ -151,7 +162,7 @@ public class ViewSelector extends JDialog {
 
 	private JButton createLogoutButton() {
 		JButton button = new JButton("Logout");
-		button.setBounds(30, 300, 160, 30);
+		button.setBounds(50, 360, 160, 30);
 		button.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent event) {
@@ -167,12 +178,12 @@ public class ViewSelector extends JDialog {
 
 	private MyJList<Report> createListReports(JPanel content) {
 		JLabel label = new JLabel("Reports:");
-		label.setBounds(230, 10, 160, 30);
+		label.setBounds(260, 10, 170, 30);
 		content.add(label);
 
 		MyJList<Report> list = new MyJList<Report>();
 		JScrollPane scrollList = new JScrollPane(list);
-		scrollList.setBounds(230, 35, 250, 350);
+		scrollList.setBounds(260, 35, 260, 350);
 		scrollList.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		content.add(scrollList);
 
@@ -193,12 +204,12 @@ public class ViewSelector extends JDialog {
 
 	private MyJList<View> createListViews(JPanel content) {
 		JLabel label = new JLabel("Views:");
-		label.setBounds(500, 10, 160, 30);
+		label.setBounds(535, 10, 165, 30);
 		content.add(label);
 
 		MyJList<View> list = new MyJList<View>();
 		JScrollPane scrollList = new JScrollPane(list);
-		scrollList.setBounds(500, 35, 250, 320);
+		scrollList.setBounds(535, 35, 255, 320);
 		scrollList.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		content.add(scrollList);
 
@@ -214,7 +225,7 @@ public class ViewSelector extends JDialog {
 
 	private JButton createRenderButton() {
 		JButton button = new JButton("Render view");
-		button.setBounds(550, 360, 160, 30);
+		button.setBounds(590, 360, 160, 30);
 		button.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent event) {

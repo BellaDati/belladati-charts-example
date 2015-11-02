@@ -26,6 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Loads JSON chart data from server via SDK.
+ * @see http://support.belladati.com/techdoc/Java+SDK
  * @author Lubomir Elko
  */
 public class SdkLoader extends AbstractLoader {
@@ -34,8 +35,11 @@ public class SdkLoader extends AbstractLoader {
 	private final BellaDatiService service;
 	private static final String EMPTY_LABEL = "(empty)";
 
-	public SdkLoader(String consumerKey, String consumerSecret, String username, String password) throws Exception {
-		connection = BellaDati.connect();
+	public SdkLoader(String serviceUrl, String consumerKey, String consumerSecret, String username, String password)
+		throws Exception {
+		String baseUrl = serviceUrl == null || serviceUrl.length() == 0 ? "https://service.belladati.com/" : serviceUrl;
+		System.out.println("Connecting to '" + baseUrl + "' with given credentials...");
+		connection = BellaDati.connect(baseUrl);
 		service = connection.xAuth(consumerKey, consumerSecret, username, password);
 	}
 
