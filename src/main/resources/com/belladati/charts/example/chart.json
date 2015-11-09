@@ -56,17 +56,17 @@
                   {
                     "top": "11.5",
                     "tip": "I / 2011 (ga:newVisits (avg))<br>11,5",
-                    "label": "11,5",
+                    "label": "11,5"
                   },
                   {
                     "top": "16.032967032967033",
                     "tip": "II / 2011 (ga:newVisits (avg))<br>16,03297",
-                    "label": "16,03297",
+                    "label": "16,03297"
                   },
                   {
                     "top": "16.75",
                     "tip": "III / 2011 (ga:newVisits (avg))<br>16,75",
-                    "label": "16,75",
+                    "label": "16,75"
                   }
                 ],
                 "colour": "#19527d"
@@ -78,17 +78,17 @@
                   {
                     "top": "32",
                     "tip": "I / 2011 (ga:newVisits (max))<br>32",
-                    "label": "32",
+                    "label": "32"
                   },
                   {
                     "top": "57",
                     "tip": "II / 2011 (ga:newVisits (max))<br>57",
-                    "label": "57",
+                    "label": "57"
                   },
                   {
                     "top": "82",
                     "tip": "III / 2011 (ga:newVisits (max))<br>82",
-                    "label": "82",
+                    "label": "82"
                   }
                 ],
                 "colour": "#f4b800"

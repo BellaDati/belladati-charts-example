@@ -18,12 +18,15 @@ public class SampleLoader extends AbstractLoader {
 	}
 
 	public void renderChart(MainWindow window) {
+		final String jsonData = getFileContent(JSON_CHART);
+
 		// load URL with index.html
 		renderIndexHtml(window, "Sample Chart");
 
 		// render the chart by executing JavaScript 
 		window.hideFilterPanel();
-		window.loadJavaScript("Charts.createAndRender(\"chart\", " + getFileContent(JSON_CHART) + ");");
+		window.loadJavaScript("Charts.createAndRender(\"chart\", " + jsonData + ");");
+		window.setJsonDataToJsonEditor(jsonData);
 	}
 
 	public void renderChart(MainWindow window, String jsonData) {
@@ -33,6 +36,7 @@ public class SampleLoader extends AbstractLoader {
 		// render the chart by executing JavaScript 
 		window.hideFilterPanel();
 		window.loadJavaScript("Charts.createAndRender(\"chart\", " + jsonData + ");");
+		window.setJsonDataToJsonEditor(jsonData);
 	}
 
 	private String getFileContent(String filePath) {

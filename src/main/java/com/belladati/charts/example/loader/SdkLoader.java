@@ -141,6 +141,7 @@ public class SdkLoader extends AbstractLoader {
 
 		// render the chart by executing JavaScript
 		window.loadJavaScript("Charts.createAndRender(\"chart\", " + jsonData + ");");
+		window.setJsonDataToJsonEditor(jsonData);
 
 		// initialize available filters
 		window.showFiltersForView(this, report, view);
@@ -155,6 +156,7 @@ public class SdkLoader extends AbstractLoader {
 
 		// render the chart by executing JavaScript
 		window.loadJavaScript("Charts.createAndRender(\"chart\", " + jsonData + ");");
+		window.setJsonDataToJsonEditor(jsonData);
 	}
 
 }

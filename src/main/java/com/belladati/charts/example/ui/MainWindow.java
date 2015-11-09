@@ -57,7 +57,7 @@ public class MainWindow extends JFrame {
 
 	private WebEngine webEngine;
 	private ViewSelector selector;
-	private JsonEditor jsonEditor;
+	private final JsonEditor jsonEditor;
 	private final FilterPanel filterPanel;
 
 	public MainWindow() throws InterruptedException {
@@ -83,6 +83,8 @@ public class MainWindow extends JFrame {
 			System.out.println("Waiting to initialize JavaFX WebEngine...");
 			Thread.sleep(1000);
 		}
+
+		jsonEditor = new JsonEditor(this);
 		clearBrowser();
 	}
 
@@ -92,6 +94,7 @@ public class MainWindow extends JFrame {
 	public void clearBrowser() {
 		hideFilterPanel();
 		loadStaticHtmlCode("<html><body><center>No chart yet</center></body></html>");
+		setJsonDataToJsonEditor(null);
 	}
 
 	/**
@@ -131,6 +134,10 @@ public class MainWindow extends JFrame {
 				}
 			}
 		});
+	}
+
+	public void setJsonDataToJsonEditor(final String jsonData) {
+		jsonEditor.setJsonData(jsonData);
 	}
 
 	private JFXPanel createWebPanel() {
@@ -179,9 +186,6 @@ public class MainWindow extends JFrame {
 		button.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent event) {
-				if (jsonEditor == null) {
-					jsonEditor = new JsonEditor(MainWindow.this);
-				}
 				jsonEditor.setVisible(true);
 			}
 		});

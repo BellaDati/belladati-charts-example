@@ -16,6 +16,8 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.JTextComponent;
 
 import com.belladati.charts.example.loader.SampleLoader;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Dialog window used to enter custom JSON data of chart, that should be rendered.
@@ -49,6 +51,21 @@ public class JsonEditor extends JDialog {
 
 		// initialize state
 		buttonRender.setEnabled(false);
+	}
+
+	public void setJsonData(final String json) {
+		if (json == null) {
+			areaJson.setText("");
+		} else {
+			try {
+				ObjectMapper mapper = new ObjectMapper();
+				JsonNode jsonNode = mapper.readTree(json);
+				areaJson.setText(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonNode));
+			} catch (Exception e) {
+				System.err.println("Cannot parse given JSON: " + e.getMessage());
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private JTextComponent createAreaJson(JPanel content) {
